@@ -42,6 +42,9 @@ const registros = db.define('registros', {
     },
     ip:{
         type: Sequelize.STRING
+    },
+    origin:{
+        type: Sequelize.STRING
     }
 });
 
@@ -52,14 +55,16 @@ const registros = db.define('registros', {
  * RUTAS
  */
 app.post('/saveregister', async (req, res) =>{
-    const {time, date, ip} = req.body;
-    if(time !== undefined && date !== undefined && ip !== undefined){
+
+    const {time, date, ip, origin} = req.body;
+    if(time !== undefined && date !== undefined && ip !== undefined && origin !== undefined){
         // Guardar en DB
         try{
             await registros.create({
                 time,
                 date,
-                ip
+                ip,
+                origin
             });
 
             res.json({msg: "Guardadito papá"});
